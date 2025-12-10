@@ -37,6 +37,7 @@ return new class extends Migration
             $table->integer('precio');
             $table->integer('enganche');
             $table->integer('saldo');
+            $table->string('estatus')->default('Activo');
             $table->timestamps();
         });
     }
