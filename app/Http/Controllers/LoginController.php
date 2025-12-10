@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function index(Request $request)
     {
 
-        return view('/welcome', ['error' => 'Credenciales inválidas']);
+        return view('welcome', ['error' => 'Credenciales inválidas']);
 
     }
 
@@ -32,7 +32,7 @@ class LoginController extends Controller
 
             return redirect()->route('home.index');
         } else {
-            return view('/welcome', ['error' => 'Credenciales inválidas']);
+            return view('welcome', ['error' => 'Credenciales inválidas']);
         }
     }
 
@@ -40,5 +40,7 @@ class LoginController extends Controller
     {
         //
         $request->session()->flush();
+
+        return redirect()->route('login.index');
     }
 }
