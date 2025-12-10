@@ -14,12 +14,12 @@
     <title>Muebleria la espanola</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('/dash/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/main.css')}}" rel="stylesheet" type="text/css">
         @yield('css')
 
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('/dash/css/sb-admin-2.min.css')}}" rel="stylesheet">
+
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -33,9 +33,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
+        <!-- Sidebar  include(layouts.sidebar) -->
 
-    @include('layouts.sidebar')
+
 
         <!-- End of Sidebar -->
 
@@ -43,7 +43,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" >
 
                 <!-- Topbar -->
                @include('layouts.header')
@@ -64,7 +64,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; by  Jorge Garrido 2024</span>
+                        <span>Copyright &copy; by  Jorge Garrido 2025</span>
                     </div>
                 </div>
             </footer>
@@ -81,7 +81,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
+    <!-- Logout Modal
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -100,8 +100,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
+--Bootstrap core JavaScript-->
 
 
 

@@ -1,16 +1,11 @@
- <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="nav nav-pills nav-fill">
+  <a class="nav-link "  id="spaceLine" aria-current="page" href="#">Home</a>
+  <a class="nav-link " id="spaceLine" href="#">Venta</a>
+  <a class="nav-link" id="spaceLine" href="#">Inventario</a>
+    <a class="nav-link " id="spaceLine" href="#">Reportes</a>
+  <a class="nav-link"  id="spaceLine" href="#">Abonos</a>
+  <a class="nav-link " id="spaceLine"  href="{{ route('logout') }}">Salir</a>
+</nav>
 
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                                <a class="dropdown-item" href="{{route('logout')}}" >
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
+</nav>

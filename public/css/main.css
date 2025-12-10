@@ -1,0 +1,74 @@
+/* Sidebar: submenu */
+#submenuOrders,
+#submenuReq {
+    padding-left: 15px;
+}
+
+/* Texto activo dentro del sidebar */
+#PO {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Wrapper principal */
+#content-wrapper {
+    background-color: #f8f9fc;
+}
+
+/* Topbar */
+#topbar-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4e73df;
+}
+
+/* Contenedor principal de contenido */
+#main-content {
+    padding: 20px;
+}
+
+/* Tabla o área de datos principal */
+#data-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+}
+
+/* Botón general */
+#btn-action {
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+/* Footer */
+#footer-info {
+    font-size: 14px;
+    color: #858796;
+}
+
+/* Logout modal text */
+#logoutModal .modal-body {
+    font-size: 15px;
+}
+
+/* Cards */
+#summary-card {
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* Scroll-to-top */
+#page-top {
+    scroll-behavior: smooth;
+}
+#spaceLine {
+    margin-right: 7px;
+    color: #f76618;
+    font-size: large;
+    font-size-adjust: auto;
+}
+#imageHome {
+    width: 100%;
+    height: 100%;
+}
