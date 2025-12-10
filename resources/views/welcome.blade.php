@@ -40,7 +40,7 @@
                 <div class="col-md-12 text-center  ">
                      <h1>Mueblria la espanola </h1>
                 </div>
-                  <form name="f1" action="{{ route('login.index') }}" onsubmit="return validation()" method="POST">
+                  <form name="f1" action="{{ route('login.login') }}" onsubmit="return validation()" method="POST">
                      @csrf
                <div class="form-group item-center text-center">
 

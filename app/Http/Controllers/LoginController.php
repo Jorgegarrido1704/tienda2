@@ -12,9 +12,17 @@ class LoginController extends Controller
      */
     public function index(Request $request)
     {
+
+        return view('/welcome', ['error' => 'Credenciales inválidas']);
+
+    }
+
+    public function login(Request $request)
+    {
+        //
         // registro de logins
-        $username = $request->input('username');
-        $password = $request->input('password');
+        $username = $request->input('user');
+        $password = $request->input('pass');
         $logins = login::where('username', '=', $username)
             ->where('password', '=', $password)
             ->first();
@@ -22,15 +30,12 @@ class LoginController extends Controller
             // Guardar datos en la sesión
             session(['username' => $logins->username, 'role' => $logins->role]);
 
-            return redirect()->route('/welcome');
+            return redirect()->route('home.index');
         } else {
-            return view('login.index', ['error' => 'Credenciales inválidas']);
+            return view('/welcome', ['error' => 'Credenciales inválidas']);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function logout(Request $request)
     {
         //
