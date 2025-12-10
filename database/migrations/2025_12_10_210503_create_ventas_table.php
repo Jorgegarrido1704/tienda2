@@ -12,10 +12,31 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ventas', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoincrement();
+            $table->string('fecha');
+            $table->string('semanal');
+            $table->integer('meses');
+            $table->string('ruta');
             $table->string('cuenta');
-            $table->string('nombre');
-
+            $table->string('cliente');
+            $table->string('aval')->nullable();
+            $table->string('domcli');
+            $table->string('espo')->nullable();
+            $table->string('domaval');
+            $table->string('col')->nullable();
+            $table->string('ref2')->nullable();
+            $table->string('domre2')->nullable();
+            $table->string('promotor');
+            $table->string('ref1')->nullable();
+            $table->string('vendedor');
+            $table->string('cobrador');
+            $table->string('domref1')->nullable();
+            $table->string('entrego')->nullable();
+            $table->string('cantArt');
+            $table->integer('articulo');
+            $table->integer('precio');
+            $table->integer('enganche');
+            $table->integer('saldo');
             $table->timestamps();
         });
     }
