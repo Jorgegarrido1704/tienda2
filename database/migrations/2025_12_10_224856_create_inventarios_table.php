@@ -40,6 +40,8 @@ return new class extends Migration
             $table->integer('semanal10');
             $table->integer('semanal11');
             $table->integer('semanal12');
+            $table->string('categoria');
+            $table->integer('anoPrecio');
             $table->timestamps();
         });
     }
@@ -49,6 +51,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventarios');
+        Schema::dropIfExists('inventario');
     }
 };
