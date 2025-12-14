@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1 text-center  ">
+                            <div class="col-md-2 text-center  ">
                                 <div class="form-group">
                                     <div class="col-md-12 ">
                                         <label for="pago">Pago Semanal</label>
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1 text-center  ">
+                            <div class="col-md-2 text-center  ">
                                 <div class="form-group">
                                     <div class="col-md-12 ">
                                         <label for="meses">Meses de pago</label>
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1 text-center  ">
+                            <div class="col-md-2 text-center  ">
                                 <div class="form-group">
                                     <div class="col-md-12 ">
                                         <label for="ruta">Ruta</label>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1 text-center  ">
+                            <div class="col-md-2 text-center  ">
                                 <div class="form-group">
                                     <div class="col-md-12 ">
                                         <label for="cuenta">Cuenta</label>
