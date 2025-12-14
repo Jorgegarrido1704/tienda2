@@ -23,4 +23,8 @@ class VentaController extends Controller
     }
 
     public function fetchProducts(Request $request) {}
+
+    public function store(Request $request) {
+        
+    }
 }

@@ -1,164 +1,125 @@
-var dynamicContentCount = 0;
-
-function generateDynamicContent(quantity) {
-    var dynamicContentContainer = document.getElementById(
-        "dynamicContentContainer"
-    );
-
-    // Clear existing content
-    dynamicContentContainer.innerHTML = "";
-
-    // Generate new content based on quantity
-    for (var i = 0; i < quantity; i++) {
-        var dynamicContent = document.createElement("div");
-        dynamicContent.className = "seg-oct";
-
-        dynamicContent.innerHTML = `
-            <h2>
-                <label for="cantidpro" id="art">Cantidad</label>
-                <input type="number" name="cantidpro[]" id="cantidpro${i}"  min="1" max="1" required>
-
-
-                <label for="categoria" id="art">Categoria</label>
-                <select name="categoria[]" id="categoria${i}" onchange="fetchProducts(${i});">
-                    <option value=""></option>
-                    <?php
-                        $qry=mysqli_query($con,"SELECT DISTINCT category FROM inventario");
-                        while($rowcat=mysqli_fetch_array($qry)){
-                            $category=$rowcat['category'];
-                            echo "<option value='".$category."'>".$category."</option>";
-                        }
-                    ?>
-                </select>
-
-                <label for="articulo" id="art">Articulo</label>
-                <select name="articulo[] " id="articulo${i}" onchange="price(${i});"></select>
-
-                <!-- Adding an input for the price -->
-                <input type="hidden" id="precio${i}" value="0">
-            </h2>
-        `;
-
-        dynamicContentContainer.appendChild(dynamicContent);
-    }
-    dynamicContentCount = quantity;
-}
+let dynamicContentCount = 0;
 
 function cantidad() {
-    var cant = document.getElementById("cantart").value;
-    var plazo = document.getElementById("plazo").value;
-
+    const cant = document.getElementById("cantart").value;
     generateDynamicContent(cant);
-    price(); // Calculate total price initially
 }
 
+function generateDynamicContent(quantity) {
+    const container = document.getElementById("dynamicContentContainer");
+    container.innerHTML = "";
+    dynamicContentCount = quantity;
+
+    for (let i = 0; i < quantity; i++) {
+        container.insertAdjacentHTML("beforeend", `
+            <div class="row mb-3">
+                <div class="col-md-2">
+                    <label>Cantidad</label>
+                    <input type="number" name="cantidpro[]" id="cantidpro${i}" class="form-control" value="1" min="1" max="1">
+                </div>
+
+                <div class="col-md-4">
+                    <label>Categoría</label>
+                    <select name="categoria[]" id="categoria${i}" class="form-control" onchange="fetchProducts(${i})">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Artículo</label>
+                    <select name="articulo[]" id="articulo${i}" class="form-control" onchange="price()">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        `);
+
+        loadCategorias(i);
+    }
+}
+
+/* CARGAR CATEGORÍAS */
+function loadCategorias(index) {
+    fetch('/categorias')
+        .then(res => res.json())
+        .then(data => {
+            const select = document.getElementById(`categoria${index}`);
+            data.forEach(cat => {
+                select.insertAdjacentHTML(
+                    "beforeend",
+                    `<option value="${cat.category}">${cat.category}</option>`
+                );
+            });
+        });
+}
+
+/* CARGAR ARTÍCULOS */
 function fetchProducts(index) {
-    var categorySelect = document.getElementById("categoria" + index);
-    var productSelect = document.getElementById("articulo" + index);
+    const categoria = document.getElementById(`categoria${index}`).value;
+    const articuloSelect = document.getElementById(`articulo${index}`);
+    articuloSelect.innerHTML = `<option value=""></option>`;
 
-    // Clear existing options
-    productSelect.innerHTML = '<option value=""></option>';
+    if (!categoria) return;
 
-    // Fetch products based on the selected category
-    if (categorySelect.value !== "") {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
+    fetch(`/productos/${categoria}`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(p => {
+                articuloSelect.insertAdjacentHTML(
+                    "beforeend",
+                    `<option value="${p.product}">${p.product}</option>`
+                );
+            });
+        });
+}
 
-                for (var i = 0; i < response.length; i++) {
-                    var product = response[i];
-                    var option = document.createElement("option");
-                    option.value = product.product;
-                    option.text = product.product;
-                    productSelect.appendChild(option);
+/* CALCULAR PRECIOS */
+function price() {
+    let total = 0;
+    let semanal = 0;
+    const plazo = document.getElementById("plazo").value;
+
+    for (let i = 0; i < dynamicContentCount; i++) {
+        const articulo = document.getElementById(`articulo${i}`).value;
+        const cantidad = document.getElementById(`cantidpro${i}`).value;
+
+        if (!articulo) continue;
+
+        fetch(`/precio?articulo=${articulo}&plazo=${plazo}`)
+            .then(res => res.json())
+            .then(data => {
+                let subtotal = 0;
+
+                if (plazo > 0) {
+                    subtotal = data.precio * cantidad;
+                    semanal += data.semana * cantidad;
+                } else {
+                    subtotal = data.contado * cantidad;
                 }
-            }
-        };
 
-        xhttp.open(
-            "GET",
-            "get_products.php?category=" + categorySelect.value,
-            true
-        );
-        xhttp.send();
+                total += subtotal;
+
+                document.getElementById("prec").value = total;
+                document.getElementById("forma").value = semanal;
+                document.getElementById("sald").value = total;
+
+                document.getElementById("pre").value = total;
+                document.getElementById("sa").value = total;
+                document.getElementById("fo").value = semanal;
+            });
     }
 }
 
-function price(index) {
-    var total = 0;
-    var totals = 0;
-
-    for (var i = 0; i < dynamicContentCount; i++) {
-        // Fetch additional data based on selected options
-        var plazo = document.getElementById("plazo").value;
-        var cant = document.getElementById("cantidpro" + i).value;
-        var articulo = document.getElementById("articulo" + i).value;
-
-        console.log("plazo:", plazo);
-        console.log("cant:", cant);
-        console.log("articulo:", articulo);
-
-        if (cant !== "" && articulo !== "") {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var response = JSON.parse(this.responseText);
-                    console.log(response);
-                    // Actualiza el campo de precio con el valor devuelto por el servidor
-                    if (response.precio > 0) {
-                        var precioPorCantidad = response.precio * cant;
-                        var semanales = response.semana * cant;
-                    } else {
-                        var precioPorCantidad = response.contado * cant;
-                        var semanales = 0;
-                    }
-                    document.getElementById("prec").innerText =
-                        precioPorCantidad;
-
-                    // Add the price to the total
-                    total += precioPorCantidad;
-                    totals += semanales;
-                    // Update the total price after processing each article
-                    document.getElementById("prec").innerText = total;
-                    document.getElementById("forma").innerText = totals;
-                    document.getElementById("sald").innerText = total;
-
-                    document.getElementById("pre").value = total;
-                    document.getElementById("sa").value = total;
-                    document.getElementById("fo").value = totals;
-                }
-            };
-
-            // Ajusta la URL según tu estructura de URL
-            xhttp.open(
-                "GET",
-                "get_price.php?articulo=" + articulo + "&plazo=" + plazo,
-                true
-            );
-            xhttp.send();
-        }
-    }
-
-    // Log information to the console
-    console.log("Total price:", total);
-    console.log("Total sem:", totals);
-}
-
+/* ENGANCHE */
 function enganche() {
-    var precio = document.getElementById("prec").innerText;
-    var enganche = document.getElementById("eng").value;
+    const subtotal = parseFloat(document.getElementById("prec").value || 0);
+    let eng = parseFloat(document.getElementById("eng").value || 0);
 
-    if (enganche < 0) {
-        alert("El enganche no puede ser menor a 0 ");
-        document.getElementById("eng").value = 0;
-        document.getElementById("sald").innerText = precio;
-    } else if (precio > 0 && enganche >= 0) {
-        var resto = precio - enganche;
+    if (eng < 0) eng = 0;
+    if (eng > subtotal) eng = subtotal;
 
-        document.getElementById("sa").value = resto;
-        document.getElementById("fo").value =
-            document.getElementById("forma").innerText;
-        document.getElementById("sald").innerText = resto;
-    }
+    const saldo = subtotal - eng;
+
+    document.getElementById("sald").value = saldo;
+    document.getElementById("sa").value = saldo;
 }
