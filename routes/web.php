@@ -20,7 +20,8 @@ Route::controller(home::class)->group(function () {
 Route::controller(VentaController::class)->group(function () {
     Route::get('/venta', 'index')->name('venta.index');
     Route::get('/imprimir', 'imprimir')->name('venta.imprimir');
-    Route::post('/fetchProducts', 'fetchProducts')->name('venta.fetchProducts');
+    Route::get('/fetchProducts', 'fetchProducts')->name('venta.fetchProducts');
+    Route::get('/precio', 'getPrice')->name('venta.getPrice');
     Route::post('/create', 'create')->name('venta.create');
     Route::post('/store', 'store')->name('venta.store');
 });

@@ -1,7 +1,22 @@
 @extends('layouts.main')
 
 @section('contenido')
+<script>
+
+    const ROUTES = {
+    // Faltaba la comilla despues de las llaves }}
+    fetchProducts: "{{ route('venta.fetchProducts') }}"
+};
+const ROUTE_getPrice = "{{ route('venta.getPrice') }}";
+
+
+</script>
 <script src="{{ asset('js/venta.js') }}"></script>
+<script>
+
+const categoriesData = @json($categorias);
+</script>
+
 
 <form action="{{ route('venta.store') }}" method="POST">
 @csrf
@@ -19,7 +34,7 @@
 
         <div class="col-md-2">
             <label>Forma de pago $</label>
-            <input type="text" id="forma" name="forma" class="form-control" readonly>
+            <input type="number" id="forma" name="forma" class="form-control" value="0" readonly>
         </div>
 
         <div class="col-md-2">
@@ -40,7 +55,7 @@
 
         <div class="col-md-2">
             <label>No. Cuenta</label>
-            <input type="number" name="cuenta" class="form-control" value="0">
+            <input type="text" name="cuenta" class="form-control" value="0">
         </div>
     </div>
 
@@ -105,7 +120,7 @@
 
     {{-- PERSONAL --}}
     <div class="row mb-3">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label>Promotor</label>
             <select name="promotor" class="form-control" required>
                 <option value=""></option>
@@ -115,7 +130,7 @@
             </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label>Vendedor</label>
             <select name="vendedor" class="form-control" required>
                 <option value=""></option>
@@ -125,7 +140,7 @@
             </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label>Cobrador</label>
             <select name="cobrador" class="form-control" required>
                 <option value=""></option>
@@ -134,10 +149,9 @@
                 @endforeach
             </select>
         </div>
-    </div>
 
     {{-- ARTICULOS --}}
-    <div class="row mb-3">
+
         <div class="col-md-3">
             <label>Cantidad de artículos</label>
             <input type="number" id="cantart" name="cantart" class="form-control" min="0" onchange="cantidad()" required>
@@ -152,10 +166,7 @@
             <label>Subtotal $</label>
             <input type="text" id="prec" class="form-control" readonly>
         </div>
-    </div>
-
     {{-- ENGANCHE / SALDO --}}
-    <div class="row mb-3">
         <div class="col-md-4">
             <label>Enganche $</label>
             <input type="number" id="eng" name="eng" class="form-control" value="0" onchange="enganche()">
