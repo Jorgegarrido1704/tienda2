@@ -11,8 +11,10 @@ class VentaController extends Controller
     public function index()
     {
         $venta = venta::orderBy('cuenta', 'desc')->limit(1)->first();
-
-        return view('ventas.venta');
+        $promotores = $vendedores = $cobradores =[];
+        $venta ='';
+        return view('ventas.venta',['promotores'=>$promotores, 'vendedores'=>$vendedores,
+        'cobradores'=>$cobradores, 'venta'=>$venta]);
     }
 
     public function create(Request $request) {}
@@ -25,6 +27,6 @@ class VentaController extends Controller
     public function fetchProducts(Request $request) {}
 
     public function store(Request $request) {
-        
+
     }
 }

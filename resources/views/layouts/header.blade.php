@@ -5,7 +5,7 @@
   <a class="nav-link " id="spaceLine" href="#">Abonos</a>
   <a class="nav-link" id="spaceLine" href="#">Inventario</a>
   <a class="nav-link " id="spaceLine" href="#">Reportes</a>
-  <a class="nav-link"  id="spaceLine" href="#">Historios</a>
+  <a class="nav-link"  id="spaceLine" href="#">Historico</a>
   <a class="nav-link " id="spaceLine"  href="{{ route('logout') }}">Salir</a>
 </nav>
 

@@ -3,7 +3,7 @@
 @section('contenido')
 <script src="{{ asset('js/venta.js') }}"></script>
 
-<form action="{{ route('ventas.store') }}" method="POST">
+<form action="{{ route('venta.store') }}" method="POST">
 @csrf
 
 <div class="container-fluid">

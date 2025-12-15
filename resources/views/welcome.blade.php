@@ -38,7 +38,7 @@
         <div class="col-md-6 item-center text-center" id="login">
             <div class="card px-4 py-4">
                 <div class="col-md-12 text-center  ">
-                     <h1>Mueblria la espanola </h1>
+                     <h1>Mueblria la española </h1>
                 </div>
                   <form name="f1" action="{{ route('login.login') }}" onsubmit="return validation()" method="POST">
                      @csrf
