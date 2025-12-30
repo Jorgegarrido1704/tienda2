@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('contenido')
+<div class="d-sm-flex align-items-center justify-content-between mb-4">  </div>
 <script>
 
     const ROUTES = {
@@ -18,7 +19,7 @@ const categoriesData = @json($categorias);
 </script>
 
 
-<form action="{{ route('venta.store') }}" method="POST">
+<form action="{{ route('venta.store') }}" method="POST" id="ventaForm">
 @csrf
 
 <div class="container-fluid">
@@ -114,7 +115,7 @@ const categoriesData = @json($categorias);
         </div>
         <div class="col-md-6">
             <label>Domicilio Ref 2</label>
-            <input type="text" name="domref" class="form-control">
+            <input type="text" name="domref2" class="form-control">
         </div>
     </div>
 
@@ -181,6 +182,7 @@ const categoriesData = @json($categorias);
     <input type="hidden" name="pre" id="pre">
     <input type="hidden" name="sa" id="sa">
     <input type="hidden" name="fo" id="fo">
+    <input type="hidden" name="arts" id="arts">
 
     <button type="submit" class="btn btn-primary">Guardar</button>
 

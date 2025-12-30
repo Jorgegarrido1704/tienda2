@@ -148,6 +148,7 @@ async function fetchProducts(index) {
 
 // 1. Esta función obtiene el precio INDIVIDUAL del servidor
 async function price(index) {
+
     const articuloSelect = document.getElementById("articulo" + index);
     const cantidadInput = document.getElementById("cantidpro" + index);
     const plazoInput = document.getElementById("plazo"); // Asumo que es un campo general
@@ -267,4 +268,21 @@ function calcularSaldoFinal() {
 
     document.getElementById("sald").value = saldoFinal.toFixed(2); // Input visible
     document.getElementById("sa").value = saldoFinal; // Input hidden
+ let cantiArt = document.getElementById("cantart").value;
+
+let articulosConcatenados = "";
+
+for (let i = 0; i < cantiArt; i++) {
+    let articuloSelect = document.getElementById("articulo" + i);
+    if (!articuloSelect || !articuloSelect.value) {
+        continue;
+    }
+    articulosConcatenados += (articuloSelect ? ", " : "") + articuloSelect.value;
 }
+
+
+document.getElementById("arts").value = articulosConcatenados;
+
+
+}
+

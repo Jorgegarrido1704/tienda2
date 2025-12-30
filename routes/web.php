@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbonoController;
 use App\Http\Controllers\home;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VentaController;
@@ -24,4 +25,10 @@ Route::controller(VentaController::class)->group(function () {
     Route::get('/precio', 'getPrice')->name('venta.getPrice');
     Route::post('/create', 'create')->name('venta.create');
     Route::post('/store', 'store')->name('venta.store');
+});
+
+Route::controller(AbonoController::class)->group(function () {
+    Route::get('/abono', 'index')->name('abono.index');
+    Route::post('/abono/datos', 'datos')->name('abono.datos');
+    Route::post('/abono/store', 'store')->name('abono.store');
 });

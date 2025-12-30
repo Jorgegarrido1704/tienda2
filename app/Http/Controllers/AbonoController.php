@@ -2,9 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class AbonoController extends Controller
 {
     //
+    public function index()
+    {
+        //
+        $user = session('username');
+        $role = session('role');
+        if (! $user) {
+            return redirect()->route('login.index');
+        }
+
+        return view('abonos.abonos', [
+            'user' => $user,
+            'role' => $role,
+        ]);
+    }
+
+    public function datos()
+    {
+        //
+    }
+
+    public function store()
+    {
+        //
+    }
 }
