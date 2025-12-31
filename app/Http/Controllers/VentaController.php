@@ -130,6 +130,6 @@ class VentaController extends Controller
             'estatus' => 'ACTIVO',
         ]);
 
-        return redirect()->back();
+        return view('ventas.impresion', ['venta' => $data]);
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta http-equiv="REFRESH" content="3;url=principal.php">
+ <meta http-equiv="REFRESH" content="3;url={{ route('home.index') }}">
 
  <style>
 
@@ -60,45 +60,45 @@
 
 
  </style>
-    <title></title>
+    <title>Impresion de venta</title>
 </head>
 <body>
 
 <div class="head">
-    <h1>Fecha: </h1>
+    <h1>Fecha: {{ $venta['date'] ?? 'N/A' }}</h1>
     <h1>FORMA DE PAGO: $</h1>
-    <h1>Plazo:  $plazo??1; ?> Meses</h1>
-    <h1>Ruta:  $ruta??1; ?></h1>
-    <h1>Cuenta:  $cuenta??1; ?></h1>
+    <h1>Plazo:  {{ $venta['plazo'] ?? 1 }} Meses</h1>
+    <h1>Ruta:  {{ $venta['ruta'] ?? 'N/A' }}</h1>
+    <h1>Cuenta:  {{ $venta['cuenta'] ?? 'N/A' }}</h1>
 </div>
 
 <div class="datos">
     <div>
-        <h1>Cliente:  $client??1; ?></h1>
-                <h1>Domicilio:  $dom??1; ?></h1>
+        <h1>Cliente:  {{ $venta['cliente'] ?? 'N/A' }}</h1>
+                <h1>Domicilio:  {{ $venta['domcli'] ?? 'N/A' }}</h1>
     </div>
 
     <div>
-       <h1>Aval:  $aval??1; ?></h1>
-        <h1>Domicilio Aval:  $domav??1; ?></h1>
+       <h1>Aval:  {{ $venta['aval'] ?? 'N/A' }}</h1>
+        <h1>Domicilio Aval:  {{ $venta['domav'] ?? 'N/A' }}</h1>
     </div>
 
     <div>
-        <h1>Colonia:  $col??1; ?></h1>
-       <h1>Ref 1:  $ref1??1; ?></h1>
+        <h1>Colonia:  {{ $venta['col'] ?? 'N/A' }}</h1>
+       <h1>Ref 1:  {{ $venta['ref1'] ?? 'N/A' }}</h1>
           </div>
     <div>
-       <h1>Esposo(a):  $espo??1; ?></h1>
-        <h1>Domicilio Ref 1:  $domref1??1; ?></h1>
+       <h1>Esposo(a):  {{ $venta['espo'] ?? 'N/A' }}</h1>
+        <h1>Domicilio Ref 1:  {{ $venta['domref1'] ?? 'N/A' }}</h1>
     </div>
     <div>
-        <h1>Ref 2:  $ref2??1; ?></h1></div><div>
-       <h1>Domicilio Ref 2:  $domref2??1; ?></h1>
+        <h1>Ref 2:  {{ $venta['ref2'] ?? 'N/A' }}</h1></div><div>
+       <h1>Domicilio Ref 2:  {{ $venta['domref2'] ?? 'N/A' }}</h1>
     </div></div>
     <div class="datos-linea">
-            <div><h1>Promotor:  $promo??1; ?></h1></div>
-            <div><h1>Vendedor:  $vend??1; ?></h1></div>
-            <div><h1>Cobrador:  $cobrador??1; ?></h1></div>
+            <div><h1>Promotor:  {{ $venta['promotor'] ?? 'N/A' }}</h1></div>
+            <div><h1>Vendedor:  {{ $venta['vendedor'] ?? 'N/A' }}</h1></div>
+            <div><h1>Cobrador:  {{ $venta['cobrador'] ?? 'N/A' }}</h1></div>
     </div>
     <div>
 
@@ -110,11 +110,21 @@
                 </thead>
 
         <tbody>
-            <tr class="art">
-            <td class="art"><h1> $cantart??1; ?></h1></td>
-            <td class="art"><h1> $articulo??1; ?></h1></td>
-            <td class="art"><h1> $precioart??1; ?></h1></td>
-            </tr>
+
+                @php
+                    $articulos = explode(',', $venta['arts']);
+
+                @endphp
+
+                @for($i = 1; $i < count($articulos); $i++)
+                    <tr class="art">
+                        <td class="art"><h1>1</h1></td>
+                        <td class="art"><h1>{{ $articulos[$i] ?? 'N/A' }}</h1></td>
+                        <td class="art"><h1>{{ intval($venta['pre']/(count($articulos))-1) ?? 1 }}</h1></td>
+                    </tr>
+                @endfor
+
+
 
             </tbody>
             </table>
@@ -122,10 +132,10 @@
 
     </div>
     <div class="datos">
-    <h1>Total:$  $precio??1; ?></h1>
-    <h1>Enganceh:$  $enganche??1; ?></h1>
-    <h1>Saldo:$  $saldo??1; ?></h1>
-    <h1>Fecha de vencimiento:  $vencimiento??1; ?></h1>
+    <h1>Total:$   {{ $venta['pre'] ?? 'N/A' }}</h1>
+    <h1>Enganceh:$  {{ $venta['eng'] ?? 'N/A' }}</h1>
+    <h1>Saldo:$  {{ $venta['saldo'] ?? 'N/A' }}</h1>
+    <h1>Fecha de vencimiento:  {{ date("Y-m-d", strtotime($venta['date'] . ' + ' . $venta['plazo'] . ' months')) ?? 'N/A' }}</h1>
     <table>
         <thead>
         <th class="cob"><h2>Fecha</h2></th>
@@ -139,12 +149,13 @@
         </thead>
         <tbody>
 
-            =$plazo*2??1;
-            for($i=0;$i<3;$i++){?>
+
+            @for($i=0;$i<3;$i++)
             <tr class="cob"><td class="cob"></td> <td class="cob"></td> <td class="cob"></td>
             <td class="cob"></td> <td class="cob"></td><td class="cob"></td> <td class="cob"></td>
             <td class="cob"></td> </tr>
-            
+            @endfor
+
         </tbody>
     </table>
 </div>
@@ -162,12 +173,12 @@
         </thead>
         <tbody>
 
-            
-            for($i=0;$i<21;$i++){?>
+
+            @for($i=0;$i<21;$i++)
             <tr class="cob"><td class="cob"></td> <td class="cob"></td> <td class="cob"></td>
             <td class="cob"></td> <td class="cob"></td><td class="cob"></td> <td class="cob"></td>
             <td class="cob"></td> </tr>
-            
+            @endfor
         </tbody>
     </table>
     </body>
