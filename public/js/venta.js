@@ -277,7 +277,7 @@ for (let i = 0; i < cantiArt; i++) {
     if (!articuloSelect || !articuloSelect.value) {
         continue;
     }
-    articulosConcatenados += (articuloSelect ? ", " : "") + articuloSelect.value;
+    articulosConcatenados += (articulosConcatenados ? ", " : "") + articuloSelect.value;
 }
 
 
