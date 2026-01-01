@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inventario', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo');
             $table->string('product')->unique();
             $table->integer('qty');
             $table->integer('CONTADO');
