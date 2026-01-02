@@ -136,7 +136,7 @@ class VentaController extends Controller
         } else {
             $articulos = ['',$data['arts']];
         }
-        for ($i = 1; $i <= count($articulos)-1; $i++) {
+        for ($i = 1; $i  < count($articulos); $i++) {
             ensal::insert([
                 'cuenta' => $data['date'],
                 'producto' => $articulos[$i],
