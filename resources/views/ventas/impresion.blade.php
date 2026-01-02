@@ -66,7 +66,7 @@
 
 <div class="head">
     <h1>Fecha: {{ $venta['date'] ?? 'N/A' }}</h1>
-    <h1>FORMA DE PAGO: $</h1>
+    <h1>FORMA DE PAGO: ${{ $venta['forma'] ?? 'N/A' }}</h1>
     <h1>Plazo:  {{ $venta['plazo'] ?? 1 }} Meses</h1>
     <h1>Ruta:  {{ $venta['ruta'] ?? 'N/A' }}</h1>
     <h1>Cuenta:  {{ $venta['cuenta'] ?? 'N/A' }}</h1>

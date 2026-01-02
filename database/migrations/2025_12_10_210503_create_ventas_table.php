@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('semanal');
             $table->integer('meses');
             $table->string('ruta');
-            $table->string('cuenta');
+            $table->string('cuenta')->unique();
             $table->string('cliente');
             $table->string('aval')->nullable();
             $table->string('domcli');
