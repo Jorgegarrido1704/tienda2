@@ -17,13 +17,13 @@ class VentaController extends Controller
         $venta = '';
         $personal = personal::all();
         foreach ($personal as $p) {
-            if ($p->puesto == 'Promotor') {
+            if ($p->puesto == 'PROMOTOR') {
                 $promotores[] = $p;
             }
-            if ($p->puesto == 'Vendedor') {
+            if ($p->puesto == 'VENDEDOR') {
                 $vendedores[] = $p;
             }
-            if ($p->puesto == 'Cobrador') {
+            if ($p->puesto == 'COBRADOR') {
                 $cobradores[] = $p;
             }
         }

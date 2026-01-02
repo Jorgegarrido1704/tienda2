@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-2">
         <label>Cliente</label>
-        <input type="text" id="cliente" name="cliente" class="form-control" onchange="">
+        <input type="text" id="cliente" name="cliente" class="form-control" onchange="abonos()" >
 
     </div>
 </div>
