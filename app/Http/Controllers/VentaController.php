@@ -6,6 +6,7 @@ use App\Models\inventario;
 use App\Models\personal;
 use App\Models\venta;
 use Illuminate\Http\Request;
+use App\Models\ensal;
 
 class VentaController extends Controller
 {
@@ -129,6 +130,20 @@ class VentaController extends Controller
             'saldo' => $data['sa'],
             'estatus' => 'ACTIVO',
         ]);
+        if(strpos($data['arts'], ',') !== false){
+            $articulos = explode(',', $data['arts']);
+            array_unshift($articulos, '');
+        } else {
+            $articulos = ['',$data['arts']];
+        }
+        for ($i = 1; $i <= count($articulos)-1; $i++) {
+            ensal::insert([
+                'cuenta' => $data['date'],
+                'producto' => $articulos[$i],
+                'cantidad' => 1,
+                'concepto' => 'VENTA',
+            ]);
+        }
 
         return view('ventas.impresion', ['venta' => $data]);
     }
