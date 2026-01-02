@@ -114,6 +114,8 @@
                 @php
                 if(isset($venta['arts']) && strpos($venta['arts'], ',') !== false){
                     $articulos = explode(',', $venta['arts']);
+                    
+                    array_unshift($articulos, '');
                 } else {
                     $articulos = ['',$venta['arts']];
                 }
@@ -125,7 +127,7 @@
                     <tr class="art">
                         <td class="art"><h1>1</h1></td>
                         <td class="art"><h1>{{ $articulos[$i] ?? 'N/A' }}</h1></td>
-                        <td class="art"><h1>{{ intval($venta['pre']/(count($articulos))-1) ?? 1 }}</h1></td>
+                        <td class="art"><h1>{{ intval($venta['pre']/(count($articulos))) ?? 1 }}</h1></td>
                     </tr>
                 @endfor
 
