@@ -112,7 +112,12 @@
         <tbody>
 
                 @php
+                if(isset($venta['arts']) && strpos($venta['arts'], ',') !== false){
                     $articulos = explode(',', $venta['arts']);
+                } else {
+                    $articulos = ['',$venta['arts']];
+                }
+
 
                 @endphp
 
@@ -134,7 +139,7 @@
     <div class="datos">
     <h1>Total:$   {{ $venta['pre'] ?? 'N/A' }}</h1>
     <h1>Enganceh:$  {{ $venta['eng'] ?? 'N/A' }}</h1>
-    <h1>Saldo:$  {{ $venta['saldo'] ?? 'N/A' }}</h1>
+    <h1>Saldo:$  {{ $venta['sa'] ?? 'N/A' }}</h1>
     <h1>Fecha de vencimiento:  {{ date("Y-m-d", strtotime($venta['date'] . ' + ' . $venta['plazo'] . ' months')) ?? 'N/A' }}</h1>
     <table>
         <thead>
