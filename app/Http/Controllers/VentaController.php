@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ensal;
 use App\Models\inventario;
 use App\Models\personal;
 use App\Models\venta;
 use Illuminate\Http\Request;
-use App\Models\ensal;
 
 class VentaController extends Controller
 {
@@ -103,6 +103,9 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        if (venta::where('cuenta', $data['cuenta'])->exists()) {
+            return back()->with('error', 'El numero de cuenta ya existe.');
+        }
         $venta = venta::insert([
             'fecha' => $data['date'],
             'semanal' => $data['forma'],
@@ -130,16 +133,14 @@ class VentaController extends Controller
             'saldo' => $data['sa'],
             'estatus' => 'ACTIVO',
         ]);
-        if(!$venta) {
-            return back()->with('error', 'Error al guardar la venta.');
-        }
-        if(strpos($data['arts'], ',') !== false){
+
+        if (strpos($data['arts'], ',') !== false) {
             $articulos = explode(',', $data['arts']);
             array_unshift($articulos, '');
         } else {
-            $articulos = ['',$data['arts']];
+            $articulos = ['', $data['arts']];
         }
-        for ($i = 1; $i  < count($articulos); $i++) {
+        for ($i = 1; $i < count($articulos); $i++) {
             ensal::insert([
                 'fecha' => $data['date'],
                 'producto' => $articulos[$i],
