@@ -130,6 +130,9 @@ class VentaController extends Controller
             'saldo' => $data['sa'],
             'estatus' => 'ACTIVO',
         ]);
+        if(!$venta) {
+            return back()->with('error', 'Error al guardar la venta.');
+        }
         if(strpos($data['arts'], ',') !== false){
             $articulos = explode(',', $data['arts']);
             array_unshift($articulos, '');

@@ -9,7 +9,10 @@
     fetchProducts: "{{ route('venta.fetchProducts') }}"
 };
 const ROUTE_getPrice = "{{ route('venta.getPrice') }}";
-
+    let errores = {{ session('error') ? 'Cuenta Duplicada' : '' }};
+    if(errores!==''){
+        alert(errores);
+    }
 
 </script>
 <script src="{{ asset('js/venta.js') }}"></script>
