@@ -32,8 +32,8 @@ return new class extends Migration
             $table->string('cobrador');
             $table->string('domref1')->nullable();
             $table->string('entrego')->nullable();
-            $table->string('cantArt');
-            $table->integer('articulo');
+            $table->integer('cantArt');
+            $table->string('articulo');
             $table->integer('precio');
             $table->integer('enganche');
             $table->integer('saldo');
