@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('cuenta')->unique();
             $table->string('cliente');
             $table->string('aval')->nullable();
-            $table->string('domcli');
+            $table->string('domcli')->nullable();
             $table->string('espo')->nullable();
-            $table->string('domaval');
+            $table->string('domaval')->nullable();
             $table->string('col')->nullable();
             $table->string('ref2')->nullable();
             $table->string('domre2')->nullable();
