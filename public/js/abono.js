@@ -1,4 +1,4 @@
-
+/*
 function informacionAbono(idVenta) {
     const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const cliente = document.getElementById('cliente').value;
@@ -21,3 +21,4 @@ function informacionAbono(idVenta) {
        console.error('Error fetching abono data:', error);
    });
 }
+*/

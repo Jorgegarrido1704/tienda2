@@ -34,7 +34,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($ventas as $venta)
                         <tr>
                             <td><button type="button" class="btn btn-primary"><a class="btn btn-primary"
@@ -42,10 +41,15 @@
                             </td>
                             <td>{{ $venta->cliente }}</td>
                             <td>${{ number_format($venta->saldo, 2) }}</td>
-                            <td>{{ $venta->fecha_ultimo_abono ? \Carbon\Carbon::parse($venta->fecha_ultimo_abono)->format('d/m/Y') : 'N/A' }}
+                            <td><button type="button" class="btn btn-primary"><a class="btn btn-primary"
+                                        href="{{ route('abono.index', ['cuenta' => $venta->cuenta]) }}">
+                                        {{ $venta->fecha_ultimo_abono ? \Carbon\Carbon::parse($venta->fecha_ultimo_abono)->format('d/m/Y') : 'N/A' }}</a></button>
+
                             </td>
                         </tr>
                     @endforeach
+                </tbody>
+            </table>
         </div>
 
     </div>
