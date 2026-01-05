@@ -52,7 +52,7 @@
 
                 <div class="col-md-2">
                     <label>No. Cuenta</label>
-                    <input type="text" name="cuenta" class="form-control" value="0">
+                    <input type="number" name="cuenta" class="form-control" value="{{ $venta}}" required>
                 </div>
             </div>
 

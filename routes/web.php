@@ -25,6 +25,8 @@ Route::controller(VentaController::class)->group(function () {
     Route::get('/precio', 'getPrice')->name('venta.getPrice');
     Route::post('/create', 'create')->name('venta.create');
     Route::post('/store', 'store')->name('venta.store');
+    Route::get(('/verVentas'), 'verVentas')->name('venta.verVentas');
+    Route::get('/fetchClientes', 'fetchClientes')->name('venta.fetchClientes');
 });
 
 Route::controller(AbonoController::class)->group(function () {

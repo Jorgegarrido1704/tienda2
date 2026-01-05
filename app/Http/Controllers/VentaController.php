@@ -13,9 +13,10 @@ class VentaController extends Controller
     //
     public function index()
     {
-        $venta = venta::orderBy('cuenta', 'desc')->limit(1)->first();
+        $venta = venta::select('cuenta')->orderBy('cuenta', 'desc')->limit(1)->first();
+        $venta = $venta->cuenta ?? 0 + 1;
         $promotores = $vendedores = $cobradores = [];
-        $venta = '';
+
         $personal = personal::all();
         foreach ($personal as $p) {
             if ($p->puesto == 'PROMOTOR') {
@@ -36,9 +37,37 @@ class VentaController extends Controller
 
     public function create(Request $request) {}
 
-    public function imprimir()
+    public function imprimir(Request $request)
     {
-        return view('ventas.impresion');
+        $cuenta = $request->input('cuenta');
+
+        $venta = venta::where('cuenta', $cuenta)->first();
+        $venta['date'] = date('d-m-Y', strtotime($venta->fecha));
+        $venta['forma'] = number_format($venta->semanal, 2);
+        $venta['plazo'] = $venta->meses;
+        $venta['ruta'] = $venta->ruta;
+        $venta['cuenta'] = $venta->cuenta;
+        $venta['cliente'] = $venta->cliente;
+        $venta['aval'] = $venta->aval;
+        $venta['domcli'] = $venta->domcli;
+        $venta['espo'] = $venta->espo;
+        $venta['domav'] = $venta->domaval;
+        $venta['col'] = $venta->col;
+        $venta['ref2'] = $venta->ref2;
+        $venta['domref2'] = $venta->domre2;
+        $venta['ref1'] = $venta->ref1;
+        $venta['domref1'] = $venta->domref1;
+        $venta['promotor'] = $venta->promotor;
+        $venta['vendedor'] = $venta->vendedor;
+        $venta['entrego'] = $venta->entrego;
+        $venta['cobrador'] = $venta->cobrador;
+        $venta['cantart'] = $venta->cantArt;
+        $venta['arts'] = $venta->articulo;
+        $venta['pre'] = intval($venta->precio);
+        $venta['eng'] = intval($venta->enganche);
+        $venta['sa'] = intval($venta->saldo);
+
+        return view('ventas.impresion', ['venta' => $venta]);
     }
 
     public function fetchProducts(Request $request)
@@ -150,5 +179,32 @@ class VentaController extends Controller
         }
 
         return view('ventas.impresion', ['venta' => $data]);
+    }
+
+    public function verVentas()
+    {
+        $ventas = venta::all();
+
+        return view('cliente.index', ['ventas' => $ventas]);
+    }
+
+    public function fetchClientes(Request $request)
+    {
+        $cliente = $request->input('cliente');
+        $numCuenta = $request->input('numCuenta');
+
+        $query = venta::query();
+
+        if (! empty($cliente)) {
+            $query->where('cliente', 'LIKE', "%$cliente%");
+        }
+
+        if (! empty($numCuenta)) {
+            $query->where('cuenta', '=', "$numCuenta");
+        }
+
+        $data = $query->get();
+
+        return response()->json($data);
     }
 }
