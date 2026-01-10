@@ -44,3 +44,6 @@ Route::controller(InventarioController::class)->group(function () {
     Route::get('/inventario/datoGeneralesProducto/actualizarProducto', 'actualizarProducto')->name('inventario.actualizarProducto');
     Route::get('/inventario/agregarProducto', 'agregarProducto')->name('inventario.agregarProducto');
 });
+Route::controller(ReportesController::class)->group(function () {
+    Route::get('/reportes', 'index')->name('reportes.index');
+});
