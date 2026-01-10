@@ -216,4 +216,41 @@ class VentaController extends Controller
         return view('cliente.editarCliente', ['venta' => $venta]);
 
     }
+
+    public function edicion(Request $request)
+    {
+        $data = $request->all();
+
+        $venta = Venta::where('cuenta', $data['cuenta'])->firstOrFail();
+
+        $venta->update([
+            'fecha' => $data['date'],
+            'semanal' => $data['forma'],
+            'meses' => $data['plazo'],
+            'ruta' => $data['ruta'],
+            'cuenta' => $data['cuenta'],
+            'cliente' => $data['cliente'],
+            'aval' => $data['aval'],
+            'domcli' => $data['domcli'],
+            'espo' => $data['espo'],
+            'domaval' => $data['domav'],
+            'col' => $data['col'],
+            'ref2' => $data['ref2'],
+            'domre2' => $data['domref2'],
+            'ref1' => $data['ref1'],
+            'domref1' => $data['domref1'],
+            'promotor' => $data['promotor'],
+            'vendedor' => $data['vendedor'],
+            'entrego' => $data['vendedor'],
+            'cobrador' => $data['cobrador'],
+            'cantArt' => $data['cantart'],
+            'articulo' => $data['arts'],
+            'precio' => $data['pre'],
+            'enganche' => $data['eng'],
+            'saldo' => $data['sa'],
+            'estatus' => 'ACTIVO - EDITADO',
+        ]);
+
+        return view('ventas.impresion', compact('venta'));
+    }
 }

@@ -28,6 +28,7 @@ Route::controller(VentaController::class)->group(function () {
     Route::get(('/verVentas'), 'verVentas')->name('venta.verVentas');
     Route::get('/fetchClientes', 'fetchClientes')->name('venta.fetchClientes');
     Route::get('/venta/EditarInformacion', 'EditarInformacion')->name('venta.EditarInformacion');
+    Route::post('/venta/edicion', 'edicion')->name('venta.edicion');
 });
 
 Route::controller(AbonoController::class)->group(function () {

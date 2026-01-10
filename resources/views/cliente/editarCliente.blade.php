@@ -15,7 +15,7 @@
     </script>
 
 
-    <form action="{{ route('venta.store') }}" method="POST" id="ventaForm">
+    <form action="{{ route('venta.edicion') }}" method="POST" id="ventaForm">
         @csrf
 
         <div class="container-fluid">
