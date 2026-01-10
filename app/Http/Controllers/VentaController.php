@@ -207,4 +207,13 @@ class VentaController extends Controller
 
         return response()->json($data);
     }
+
+    public function EditarInformacion(Request $request)
+    {
+        $cuenta = $request->input('cuenta');
+        $venta = venta::where('cuenta', $cuenta)->first();
+
+        return view('cliente.editarCliente', ['venta' => $venta]);
+
+    }
 }

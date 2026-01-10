@@ -31,6 +31,7 @@
                         <th>Cliente</th>
                         <th>Saldo</th>
                         <th>Fecha Ultimo Abono</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,9 @@
                                         href="{{ route('abono.index', ['cuenta' => $venta->cuenta]) }}">
                                         {{ $venta->fecha_ultimo_abono ? \Carbon\Carbon::parse($venta->fecha_ultimo_abono)->format('d/m/Y') : 'N/A' }}</a></button>
 
+                            </td>
+                            <td><button type="button" class="btn btn-primary"><a class="btn btn-primary"
+                                        href="{{ route('venta.EditarInformacion', ['cuenta' => $venta->cuenta]) }}">Editar informacion de cliente</a></button>
                             </td>
                         </tr>
                     @endforeach
