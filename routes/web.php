@@ -35,4 +35,5 @@ Route::controller(AbonoController::class)->group(function () {
     Route::get('/abono', 'index')->name('abono.index');
     Route::post('/abono/datos', 'datos')->name('abono.datos');
     Route::post('/abono/store', 'store')->name('abono.store');
+    Route::post('/abono/editarAbono', 'editarAbono')->name('abono.editarAbono');
 });

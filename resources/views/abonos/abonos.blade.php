@@ -61,6 +61,50 @@
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+             @if(!@empty($abons))
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Numero de recibo</th>
+                        <th>Fecha abono</th>
+                        <th>Abono</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($abonos as $abono)
+                    <tr>
+                        <form action="{{ route('abono.editarAbono') }}" method="POST">
+                            @csrf
+                            <td><input type="text" name="noRec" id="noRec" class="form-control"
+                                    value="{{ $abono->noRec }}" required></td>
+                            <td><input type="date" name="fecha_abono" id="fecha_abono" class="form-control"
+                                    value="{{ $abono->fechab }}" required></td>
+                            <td><input type="number" name="abono" id="abono" class="form-control"
+                                    value="{{ $abono->abono }}" required></td>
+                            <td><input type="hidden" name="editar" id="editar" class="form-control" value="{{ $abono->id }}">
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </td>
+                        </form>
+                        <form action="{{ route('abono.editarAbono') }}" method="POST">
+                            @csrf
+                            <td><input type="hidden" name="eliminar" id="eliminar" class="form-control" value="{{ $abono->id }}">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </form>
+                    </tr>
+                    @endforeach
+
+
+                </tbody>
+            </table>
+              @endif
+        </div>
+    </div>
     <script>
         function resto() {
             var saldo = parseFloat(document.getElementById('saldo').value) || 0;

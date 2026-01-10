@@ -23,8 +23,9 @@ class AbonoController extends Controller
         } else {
             $venta = null;
         }
+        $abonos = abono::where('cuenta', $cuenta)->get();
 
-        return view('abonos.abonos', ['venta' => $venta]);
+        return view('abonos.abonos', ['venta' => $venta, 'abonos' => $abonos]);
     }
 
     public function datos(Request $request)
@@ -51,6 +52,40 @@ class AbonoController extends Controller
 
         } else {
             return redirect()->route('abono.index')->with('error', 'Error al registrar el abono.');
+        }
+    }
+
+    public function editarAbono(Request $request)
+    {
+        //
+        if ($request->input('editar') != null) {
+            $id = $request->input('editar');
+            $abono = $request->input('abono');
+            $recibo = $request->input('noRec');
+            $fechaAbono = $request->input('fecha_abono');
+            $informacion = abono::select('abono', 'cuenta')->where('id', $id)->first();
+            if ($abono != $informacion->abono) {
+                $nuevoAbono = $informacion->abono - $abono;
+                venta::where('cuenta', $informacion->cuenta)
+                    ->update([
+                        'saldo' => DB::raw('saldo + '.$nuevoAbono),
+                    ]);
+
+            }
+            abono::where('id', $id)->update(['abono' => $abono, 'noRec' => $recibo, 'fechab' => $fechaAbono]);
+
+            return redirect()->route('abono.index')->with('success', 'Abono editado correctamente.');
+
+        } elseif (request->input('eliminar') != null) {
+            $id = $request->input('eliminar');
+            $abono = abono::select('abono', 'cuenta')->where('id', $id)->first();
+            venta::where('cuenta', $abono->cuenta)
+                ->update([
+                    'saldo' => DB::raw('saldo + '.$abono->abono),
+                ]);
+            $abono->delete();
+
+            return redirect()->route('abono.index')->with('success', 'Abono eliminado correctamente.');
         }
     }
 }
