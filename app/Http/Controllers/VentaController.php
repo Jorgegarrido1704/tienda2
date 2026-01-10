@@ -220,6 +220,7 @@ class VentaController extends Controller
     public function edicion(Request $request)
     {
         $data = $request->all();
+        $cuenta = $data['cuenta'];
 
         $venta = Venta::where('cuenta', $data['cuenta'])->firstOrFail();
 
@@ -251,6 +252,6 @@ class VentaController extends Controller
             'estatus' => 'ACTIVO - EDITADO',
         ]);
 
-        return view('ventas.impresion', compact('venta'));
+        return view('ventas.impresion', ['cuenta' => $cuenta]);
     }
 }
