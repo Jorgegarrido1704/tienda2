@@ -212,8 +212,24 @@ class VentaController extends Controller
     {
         $cuenta = $request->input('cuenta');
         $venta = venta::where('cuenta', $cuenta)->first();
+        $categorias = inventario::select('categoria')->distinct()->get();
+        $promotores = $vendedores = $cobradores = [];
 
-        return view('cliente.editarCliente', ['venta' => $venta]);
+        $personal = personal::all();
+        foreach ($personal as $p) {
+            if ($p->puesto == 'PROMOTOR') {
+                $promotores[] = $p;
+            }
+            if ($p->puesto == 'VENDEDOR') {
+                $vendedores[] = $p;
+            }
+            if ($p->puesto == 'COBRADOR') {
+                $cobradores[] = $p;
+            }
+        }
+
+        return view('cliente.editarCliente', ['venta' => $venta, 'categorias' => $categorias, 'promotores' => $promotores,
+            'vendedores' => $vendedores, 'cobradores' => $cobradores]);
 
     }
 
@@ -244,14 +260,14 @@ class VentaController extends Controller
             'vendedor' => $data['vendedor'],
             'entrego' => $data['vendedor'],
             'cobrador' => $data['cobrador'],
-            'cantArt' => $data['cantart'],
-            'articulo' => $data['arts'],
-            'precio' => $data['pre'],
+            //  'cantArt' => $data['cantart'],
+            //            'articulo' => $data['arts'],
+            'precio' => $data['prec'],
             'enganche' => $data['eng'],
-            'saldo' => $data['sa'],
+            'saldo' => $data['sald'],
             'estatus' => 'ACTIVO - EDITADO',
         ]);
 
-        return view('ventas.impresion', ['cuenta' => $cuenta]);
+        return redirect()->route('home.index');
     }
 }

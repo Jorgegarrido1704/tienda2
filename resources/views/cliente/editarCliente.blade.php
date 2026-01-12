@@ -148,31 +148,31 @@
                 </div>
 
                 {{-- ARTICULOS --}}
-
+                <!--
                 <div class="col-md-3">
                     <label>Cantidad de artículos</label>
                     <input type="number" id="cantart" name="cantart" class="form-control" min="0" value="{{ $venta->cantArt }}"
                         onchange="cantidad()" required>
-                </div>
+                </div> -->
             </div>
-
+<!--
             <div id="dynamicContentContainer"></div>
-
+        -->
             {{-- SUBTOTAL --}}
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Subtotal $</label>
-                    <input type="text" id="prec" class="form-control" readonly value="{{ $venta->precio }}">
+                    <input type="text" id="prec"  name ="prec" class="form-control"  value="{{ $venta->precio }}">
                 </div>
                 {{-- ENGANCHE / SALDO --}}
                 <div class="col-md-4">
                     <label>Enganche $</label>
-                    <input type="number" id="eng" name="eng" class="form-control" value="{{ $venta->engnache }}"
-                        onchange="enganche()">
+                    <input type="number" id="eng" name="eng" class="form-control" value="{{ $venta->engnache ?? 0  }}"
+                        onchange="engancheClientesModificado();">
                 </div>
                 <div class="col-md-4">
                     <label>Saldo $</label>
-                    <input type="text" id="sald" class="form-control" readonly value="{{ $venta->saldo }}">
+                    <input type="text" id="sald" name="sald" class="form-control" readonly value="{{ $venta->saldo }}">
                 </div>
             </div>
 
@@ -187,4 +187,14 @@
 
         </div>
     </form>
+    <script>
+    function engancheClientesModificado(){
+    var precio = document.getElementById("prec").value;
+    var enganche = document.getElementById("eng").value;
+
+    var saldo = parseFloat(precio) - parseFloat(enganche);
+
+    document.getElementById("sald").value = saldo;
+}
+    </script>
 @endsection
