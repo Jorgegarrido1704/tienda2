@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbonoController;
 use App\Http\Controllers\home;
+use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
