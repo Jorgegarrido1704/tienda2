@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\inventario;
+use Illuminate\Http\Request;
 
 class InventarioController extends Controller
 {
@@ -10,16 +11,16 @@ class InventarioController extends Controller
 
     public function index()
     {
-        $inventario = inventario::select('categoria')->get();
+        $inventario = inventario::select('categoria')->orderBy('categoria')->groupBy('categoria')->get();
 
         return view('inventario.index', ['inventario' => $inventario]);
     }
 
     public function datoscategorias(Request $request)
     {
-        $categoria = $request->query('categoria');
+        $categoria = $request->input('categoria');
 
-        $data = inventario::select('productos')->where('categoria', $categoria)->get();
+        $data = inventario::where('categoria', $categoria)->get();
 
         return response()->json($data);
     }
