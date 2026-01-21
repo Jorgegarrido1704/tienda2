@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\inventario;
+use App\Models\venta;
 use Illuminate\Http\Request;
 
 class InventarioController extends Controller
@@ -25,16 +26,30 @@ class InventarioController extends Controller
         return response()->json($data);
     }
 
-    public function datoGeneralesProducto(Request $request)
+    public function agregarProducto(Request $request) {}
+
+    public function datoGeneralesProducto($id)
     {
-        $articulo = $request->query('articulo');
+        // $id ya contiene el valor de la URL
+        $producto = inventario::findOrFail($id);
+        $nombre = strtoupper($producto->product);
+        $nombre = str_replace([';', ','], '', $nombre);
+        $nombre = preg_replace('/\s+/', ' ', $nombre);
 
-        $data = inventario::where('product', $articulo)->first();
+        // dd($nombre);
 
-        return response()->json($data);
+        $ventas = venta::whereRaw(
+            "REPLACE(REPLACE(UPPER(articulo), ';', ''), ',', '') LIKE ?",
+            ['%'.$nombre.'%']
+        )->get();
+
+        return view('inventario.detalle', ['producto' => $producto, 'ventas' => $ventas]);
     }
 
-    public function actualizarProducto(Request $request) {}
+    public function actualizarProducto($id)
+    {
+        $producto = inventario::findOrFail($id);
 
-    public function agregarProducto(Request $request) {}
+        return view('inventario.actualizar', compact('producto'));
+    }
 }

@@ -6,9 +6,9 @@
         const ROUTES = {
             // Faltaba la comilla despues de las llaves }}
             productos: "{{ route('inventario.datoscategorias') }}",
-            verProductos: "{{ route('inventario.datoGeneralesProducto') }}"
         };
-
+        const rutaInfoProducto = "{{ route('inventario.datoGeneralesProducto', ':id') }}";
+const rutaActualizarProducto = "{{ route('inventario.actualizarProducto', ':id') }}";
     </script>
     <script src="{{ asset('js/inventario.js') }}"></script>
 
