@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\abono;
 use App\Models\venta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AbonoController extends Controller
 {
@@ -48,10 +49,10 @@ class AbonoController extends Controller
             venta::where('cuenta', $datosAbonos['cuenta'])
                 ->update(['saldo' => $datosAbonos['restoCuenta']]);
 
-            return redirect()->route('abono.index')->with('success', 'Abono registrado correctamente.');
+            return redirect()->route('abono.index', ['cuenta' => $datosAbonos['cuenta']])->with('success', 'Abono registrado correctamente.');
 
         } else {
-            return redirect()->route('abono.index')->with('error', 'Error al registrar el abono.');
+            return redirect()->route('abono.index', ['cuenta' => $datosAbonos['cuenta']])->with('error', 'Error al registrar el abono.');
         }
     }
 
@@ -74,18 +75,18 @@ class AbonoController extends Controller
             }
             abono::where('id', $id)->update(['abono' => $abono, 'noRec' => $recibo, 'fechab' => $fechaAbono]);
 
-            return redirect()->route('abono.index')->with('success', 'Abono editado correctamente.');
+            return redirect()->route('abono.index', ['cuenta' => $informacion->cuenta])->with('success', 'Abono editado correctamente.');
 
-        } elseif (request->input('eliminar') != null) {
+        } elseif ($request->input('eliminar') != null) {
             $id = $request->input('eliminar');
             $abono = abono::select('abono', 'cuenta')->where('id', $id)->first();
             venta::where('cuenta', $abono->cuenta)
                 ->update([
                     'saldo' => DB::raw('saldo + '.$abono->abono),
                 ]);
-            $abono->delete();
+            abono::where('id', $id)->delete();
 
-            return redirect()->route('abono.index')->with('success', 'Abono eliminado correctamente.');
+            return redirect()->route('abono.index', ['cuenta' => $abono->cuenta])->with('success', 'Abono eliminado correctamente.');
         }
     }
 }

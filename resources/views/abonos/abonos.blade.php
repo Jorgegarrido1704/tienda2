@@ -63,7 +63,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-             @if(!@empty($abons))
+             @if(!empty($abonos))
             <table class="table table-striped">
                 <thead>
                     <tr>

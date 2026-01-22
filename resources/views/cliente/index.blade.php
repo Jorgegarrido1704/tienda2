@@ -7,6 +7,8 @@
             // Faltaba la comilla despues de las llaves }}
             verVentas: "{{ route('venta.fetchClientes') }}"
         };
+        var respuesta= {{ session('success') }}
+        console.log(respuesta);
     </script>
     <script src="{{ asset('js/clientes.js') }}"></script>
     <div class="row">
@@ -44,7 +46,7 @@
                             <td>${{ number_format($venta->saldo, 2) }}</td>
                             <td><button type="button" class="btn btn-primary"><a class="btn btn-primary"
                                         href="{{ route('abono.index', ['cuenta' => $venta->cuenta]) }}">
-                                        {{ $venta->fecha_ultimo_abono ? \Carbon\Carbon::parse($venta->fecha_ultimo_abono)->format('d/m/Y') : 'N/A' }}</a></button>
+                                        {{ $venta->fechab ? \Carbon\Carbon::parse($venta->fechab)->format('d/m/Y') : 'N/A' }}</a></button>
 
                             </td>
                             <td><button type="button" class="btn btn-primary"><a class="btn btn-primary"

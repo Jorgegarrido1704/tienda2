@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\abono;
 use App\Models\ensal;
 use App\Models\inventario;
 use App\Models\personal;
@@ -14,7 +15,9 @@ class VentaController extends Controller
     public function index()
     {
         $venta = venta::select('cuenta')->orderBy('cuenta', 'desc')->limit(1)->first();
-        $venta = $venta->cuenta ?? 0 + 1;
+        $venta = $venta->cuenta ? $venta->cuenta + 1 : 1;
+        $venta = substr(str_pad($venta, 4, '0', STR_PAD_LEFT), -4);
+
         $promotores = $vendedores = $cobradores = [];
 
         $personal = personal::all();
@@ -183,7 +186,15 @@ class VentaController extends Controller
 
     public function verVentas()
     {
-        $ventas = venta::all();
+        $ventas = venta::where('estatus', 'LIKE', 'ACTIVO%')
+            ->orderBy('cuenta', 'desc')
+            ->addSelect([
+                'fechab' => abono::select('fechab')
+                    ->whereColumn('abonos.cuenta', 'ventas.cuenta')
+                    ->orderBy('fechab', 'desc')
+                    ->limit(1),
+            ])
+            ->get();
 
         return view('cliente.index', ['ventas' => $ventas]);
     }
