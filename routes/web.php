@@ -42,7 +42,7 @@ Route::controller(InventarioController::class)->group(function () {
     Route::get('/inventario', 'index')->name('inventario.index');
     Route::get('/inventario/datoscategorias', 'datoscategorias')->name('inventario.datoscategorias');
     Route::get('/inventario/datoGeneralesProducto/{id}', 'datoGeneralesProducto')->name('inventario.datoGeneralesProducto');
-    Route::get('/inventario/datoGeneralesProducto/actualizarProducto/{id}', 'actualizarProducto')->name('inventario.actualizarProducto');
+    Route::post('/inventario/datoGeneralesProducto/actualizarProducto/', 'actualizarProducto')->name('inventario.actualizarProducto');
     Route::get('/inventario/agregarProducto', 'agregarProducto')->name('inventario.agregarProducto');
 });
 Route::controller(ReportesController::class)->group(function () {

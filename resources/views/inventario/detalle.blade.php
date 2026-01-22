@@ -1,6 +1,19 @@
 @extends('layouts.main')
 
 @section('contenido')
+<style>
+    .num-40{
+    width: 50px;
+    -moz-appearance: textfield;
+}
+
+.num-40::-webkit-inner-spin-button,
+.num-40::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
     <div class="d-sm-flex align-items-center justify-content-between mb-4"> </div>
     <div class="row">
         <div class="col-md-12">
@@ -8,7 +21,7 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h5 class="m-0 font-weight-bold text-primary">Detalle del producto</h5>
                 </div>
-                <div class="card-body" style="overflow-y: auto; height: 40vh;">
+                <div class="card-body" style="overflow-y: auto; height: 22vh;">
                     <table class="table table-responsive">
                         <theader>
                         <tr>
@@ -27,44 +40,50 @@
                             <th>10 meses</th>
                             <th>11 meses</th>
                             <th>12 meses</th>
-                            <th>Movimientos</th>
+
                         </tr>
                         </theader>
                         <tbody>
-                            <tr>
-                                <td>{{$producto->product}}</td>
-                                <td>{{$producto->qty}}</td>
-                                <td>{{$producto->CONTADO}}</td>
-                                <td>{{$producto->precio1}}</td>
-                                <td>{{$producto->precio2}}</td>
-                                <td>{{$producto->precio3}}</td>
-                                <td>{{$producto->precio4}}</td>
-                                <td>{{$producto->precio5}}</td>
-                                <td>{{$producto->precio6}}</td>
-                                <td>{{$producto->precio7}}</td>
-                                <td>{{$producto->precio8}}</td>
-                                <td>{{$producto->precio9}}</td>
-                                <td>{{$producto->precio10}}</td>
-                                <td>{{$producto->precio11}}</td>
-                                <td>{{$producto->precio12}}</td>
+                                 <form action="{{ route('inventario.actualizarProducto') }}" method="POST">
+                                   <tr>
+                                    <td>{{$producto->product}}</td>
+                                    @csrf
+                                    <td><input type="number" class="num-40" name="qty" value="{{$producto->qty}}" min="0" step="1" required> </td></td>
+                                    <td><input type="number" class="num-40" name="CONTADO" value="{{$producto->CONTADO}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio1" value="{{$producto->precio1}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio2" value="{{$producto->precio2}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio3" value="{{$producto->precio3}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio4" value="{{$producto->precio4}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio5" value="{{$producto->precio5}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio6" value="{{$producto->precio6}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio7" value="{{$producto->precio7}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio8" value="{{$producto->precio8}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio9" value="{{$producto->precio9}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio10" value="{{$producto->precio10}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio11" value="{{$producto->precio11}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="precio12" value="{{$producto->precio12}}" min="0" step="1" required> </td>
+                                </tr>
+                                <tr>
+                                    <td></td><td></td><td>Semanal</td>
+                                     <td><input type="number" class="num-40" name="semanal1" value="{{$producto->semanal1}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal2" value="{{$producto->semanal2}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal3" value="{{$producto->semanal3}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal4" value="{{$producto->semanal4}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal5" value="{{$producto->semanal5}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal6" value="{{$producto->semanal6}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal7" value="{{$producto->semanal7}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal8" value="{{$producto->semanal8}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal9" value="{{$producto->semanal9}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal10" value="{{$producto->semanal10}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal11" value="{{$producto->semanal11}}" min="0" step="1" required> </td>
+                                    <td><input type="number" class="num-40" name="semanal12" value="{{$producto->semanal12}}" min="0" step="1" required> </td>
 
-
-                            </tr>
-                            <tr>
-                                <td></td><td></td><td>Semanal</td>
-                                <td>{{$producto->semanal1}}</td>
-                                <td>{{$producto->semanal2}}</td>
-                                <td>{{$producto->semanal3}}</td>
-                                <td>{{$producto->semanal4}}</td>
-                                <td>{{$producto->semanal5}}</td>
-                                <td>{{$producto->semanal6}}</td>
-                                <td>{{$producto->semanal7}}</td>
-                                <td>{{$producto->semanal8}}</td>
-                                <td>{{$producto->semanal9}}</td>
-                                <td>{{$producto->semanal10}}</td>
-                                <td>{{$producto->semanal11}}</td>
-                                <td>{{$producto->semanal12}}</td>
-                            </tr>
+                                </tr>
+                                <tr>
+                               <td> <input type="hidden" name="id" value="{{$producto->id}}">
+                                <button class="btn btn-success">Guardar</button></td>
+                                </tr>
+                            </form>
                         </tbody>
                     </table>
                 </div>

@@ -46,10 +46,68 @@ class InventarioController extends Controller
         return view('inventario.detalle', ['producto' => $producto, 'ventas' => $ventas]);
     }
 
-    public function actualizarProducto($id)
+    public function actualizarProducto(Request $request)
     {
-        $producto = inventario::findOrFail($id);
+        $request->validate([
+            'id' => 'required|numeric',
+            'qty' => 'required|numeric',
+            'CONTADO' => 'required|numeric',
+            'precio1' => 'required|numeric',
+            'precio2' => 'required|numeric',
+            'precio3' => 'required|numeric',
+            'precio4' => 'required|numeric',
+            'precio5' => 'required|numeric',
+            'precio6' => 'required|numeric',
+            'precio7' => 'required|numeric',
+            'precio8' => 'required|numeric',
+            'precio9' => 'required|numeric',
+            'precio10' => 'required|numeric',
+            'precio11' => 'required|numeric',
+            'precio12' => 'required|numeric',
+            'semanal1' => 'required|numeric',
+            'semanal2' => 'required|numeric',
+            'semanal3' => 'required|numeric',
+            'semanal4' => 'required|numeric',
+            'semanal5' => 'required|numeric',
+            'semanal6' => 'required|numeric',
+            'semanal7' => 'required|numeric',
+            'semanal8' => 'required|numeric',
+            'semanal9' => 'required|numeric',
+            'semanal10' => 'required|numeric',
+            'semanal11' => 'required|numeric',
+            'semanal12' => 'required|numeric',
+        ]);
+        inventario::where('id', $request->input('id'))->update(
+            [
+                'qty' => $request->input('qty'),
+                'CONTADO' => $request->input('CONTADO'),
+                'precio1' => $request->input('precio1'),
+                'precio2' => $request->input('precio2'),
+                'precio3' => $request->input('precio3'),
+                'precio4' => $request->input('precio4'),
+                'precio5' => $request->input('precio5'),
+                'precio6' => $request->input('precio6'),
+                'precio7' => $request->input('precio7'),
+                'precio8' => $request->input('precio8'),
+                'precio9' => $request->input('precio9'),
+                'precio10' => $request->input('precio10'),
+                'precio11' => $request->input('precio11'),
+                'precio12' => $request->input('precio12'),
+                'semanal1' => $request->input('semanal1'),
+                'semanal2' => $request->input('semanal2'),
+                'semanal3' => $request->input('semanal3'),
+                'semanal4' => $request->input('semanal4'),
+                'semanal5' => $request->input('semanal5'),
+                'semanal6' => $request->input('semanal6'),
+                'semanal7' => $request->input('semanal7'),
+                'semanal8' => $request->input('semanal8'),
+                'semanal9' => $request->input('semanal9'),
+                'semanal10' => $request->input('semanal10'),
+                'semanal11' => $request->input('semanal11'),
+                'semanal12' => $request->input('semanal12'),
+            ]
+        );
 
-        return view('inventario.actualizar', compact('producto'));
+        return route('inventario.datoGeneralesProducto', ['id' => $request->input('id')]);
     }
 }
