@@ -108,6 +108,6 @@ class InventarioController extends Controller
             ]
         );
 
-        return route('inventario.datoGeneralesProducto', ['id' => $request->input('id')]);
+        return redirect()->route('inventario.datoGeneralesProducto', ['id' => $request->input('id')]);
     }
 }

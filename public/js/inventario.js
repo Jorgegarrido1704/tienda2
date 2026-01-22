@@ -50,7 +50,7 @@ function verProductos() {
         <td>${producto.precio12}</td>
         <td>
             <a class="btn" href="${infoUrl}">
-                Información de producto
+                Información de producto y cambio de precio
             </a>
         </td>
     </tr>
@@ -69,9 +69,7 @@ function verProductos() {
         <td>${producto.semanal11}</td>
         <td>${producto.semanal12}</td>
         <td>
-            <a class="btn" href="${updateUrl}">
-                Actualizar precios
-            </a>
+
         </td>
     </tr>`;
 }).join('')}
