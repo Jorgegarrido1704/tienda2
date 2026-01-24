@@ -5,7 +5,10 @@
     <script>
         const ROUTES = {
             // Faltaba la comilla despues de las llaves }}
-            verVentas: "{{ route('venta.fetchClientes') }}"
+            verVentas: "{{ route('venta.fetchClientes') }}",
+            abonos: "{{ route('abono.index', ['cuenta' => '__cuenta__']) }}",
+            imprimirCliente: "{{ route('venta.imprimir', ['cuenta' => '__cuenta__']) }}",
+            editarCliente: "{{ route('venta.EditarInformacion', ['cuenta' => '__cuenta__']) }}",
         };
         var respuesta= {{ session('success') }}
         console.log(respuesta);
@@ -25,7 +28,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" id="informacionClientes">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -36,7 +39,8 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
+
                     @foreach ($ventas as $venta)
                         <tr>
                             <td><button type="button" class="btn btn-primary"><a class="btn btn-primary"

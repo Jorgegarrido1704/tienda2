@@ -207,11 +207,23 @@ class VentaController extends Controller
         $query = venta::query();
 
         if (! empty($cliente)) {
-            $query->where('cliente', 'LIKE', "%$cliente%");
+            $query->where('cliente', 'LIKE', "%$cliente%")
+                ->addSelect([
+                    'fechab' => abono::select('fechab')
+                        ->whereColumn('abonos.cuenta', 'ventas.cuenta')
+                        ->orderBy('fechab', 'desc')
+                        ->limit(1),
+                ]);
         }
 
         if (! empty($numCuenta)) {
-            $query->where('cuenta', '=', "$numCuenta");
+            $query->where('cuenta', '=', "$numCuenta")
+                ->addSelect([
+                    'fechab' => abono::select('fechab')
+                        ->whereColumn('abonos.cuenta', 'ventas.cuenta')
+                        ->orderBy('fechab', 'desc')
+                        ->limit(1),
+                ]);
         }
 
         $data = $query->get();
