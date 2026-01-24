@@ -48,4 +48,6 @@ Route::controller(InventarioController::class)->group(function () {
 });
 Route::controller(reportesController::class)->group(function () {
     Route::get('/reportes', 'index')->name('reportes.index');
+    Route::post('/reportes/generar', 'generar')->name('reportes.generar');
+    Route::get('/ventas/export', 'exportVentas')->name('reportes.exportVentas');
 });
