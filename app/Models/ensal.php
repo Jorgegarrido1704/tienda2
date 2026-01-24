@@ -18,5 +18,6 @@ class ensal extends Model
         'producto',
         'cantidad',
         'concepto',
+        'cuenta',
     ];
 }

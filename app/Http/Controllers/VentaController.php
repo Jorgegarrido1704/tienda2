@@ -178,6 +178,7 @@ class VentaController extends Controller
                 'producto' => $articulos[$i],
                 'cantidad' => 1,
                 'concepto' => 'VENTA',
+                'cuenta' => $data['cuenta'],
             ]);
         }
 

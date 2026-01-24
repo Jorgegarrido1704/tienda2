@@ -4,6 +4,7 @@ use App\Http\Controllers\AbonoController;
 use App\Http\Controllers\home;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\reportesController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,6 @@ Route::controller(InventarioController::class)->group(function () {
     Route::post('/inventario/datoGeneralesProducto/actualizarProducto/', 'actualizarProducto')->name('inventario.actualizarProducto');
     Route::post('/inventario/agregarProducto', 'agregarProducto')->name('inventario.agregarProducto');
 });
-Route::controller(ReportesController::class)->group(function () {
+Route::controller(reportesController::class)->group(function () {
     Route::get('/reportes', 'index')->name('reportes.index');
 });

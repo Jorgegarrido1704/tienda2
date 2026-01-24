@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('producto');
             $table->integer('cantidad')->default(1);
             $table->string('concepto')->default('Salida de producto - Venta');
+            $table->string('cuenta')->nullable();
             $table->timestamps();
         });
     }
