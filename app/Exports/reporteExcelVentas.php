@@ -19,7 +19,9 @@ class reporteExcelVentas implements FromCollection, WithHeadings, WithTitle
     public function collection()
     {
         $ventas = venta::where('ruta', $this->ruta)
+            ->where('saldo', '>', 0)
             ->select('fecha', 'cuenta', 'cliente', 'articulo', 'precio', 'enganche', 'semanal', 'meses', 'saldo')
+            ->orderBy('ruta', 'asc')
             ->get();
 
         $saldoFinal = $ventas->sum('saldo');
