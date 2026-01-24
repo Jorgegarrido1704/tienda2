@@ -26,7 +26,48 @@ class InventarioController extends Controller
         return response()->json($data);
     }
 
-    public function agregarProducto(Request $request) {}
+    public function agregarProducto(Request $request)
+    {
+        $request->validate([
+            'codigo' => 'required|string',
+            'product' => 'required|string',
+            'qty' => 'required|numeric',
+            'CONTADO' => 'required|numeric',
+            'precio1' => 'required|numeric',
+            'precio2' => 'required|numeric',
+            'precio3' => 'required|numeric',
+            'precio4' => 'required|numeric',
+            'precio5' => 'required|numeric',
+            'precio6' => 'required|numeric',
+            'precio7' => 'required|numeric',
+            'precio8' => 'required|numeric',
+            'precio9' => 'required|numeric',
+            'precio10' => 'required|numeric',
+            'precio11' => 'required|numeric',
+            'precio12' => 'required|numeric',
+            'semanal1' => 'required|numeric',
+            'semanal2' => 'required|numeric',
+            'semanal3' => 'required|numeric',
+            'semanal4' => 'required|numeric',
+            'semanal5' => 'required|numeric',
+            'semanal6' => 'required|numeric',
+            'semanal7' => 'required|numeric',
+            'semanal8' => 'required|numeric',
+            'semanal9' => 'required|numeric',
+            'semanal10' => 'required|numeric',
+            'semanal11' => 'required|numeric',
+            'semanal12' => 'required|numeric',
+            'categoria' => 'required|string',
+        ]);
+        $request->merge(['codigo' => strtoupper($request->input('codigo'))]);
+        $request->merge(['product' => strtoupper($request->input('product'))]);
+        $request->merge(['categoria' => strtoupper($request->input('categoria'))]);
+        // add to $request the anoprecio
+        $request->merge(['anoPrecio' => date('Y')]);
+        $producto = inventario::create($request->all());
+
+        return back()->with('success', 'Producto agregado exitosamente.');
+    }
 
     public function datoGeneralesProducto($id)
     {
