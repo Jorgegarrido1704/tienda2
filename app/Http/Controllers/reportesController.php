@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ventaPorRutas;
+use App\Models\personal;
 use App\Models\venta;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -38,4 +39,18 @@ class reportesController extends Controller
             'ventas_por_ruta.xlsx'
         );
     }
+
+    public function exportInventario()
+    {
+        // Lógica para exportar inventario
+    }
+
+    public function comisiones()
+    {
+        $empleados = personal::select('nombre')->distinct()->whereIn('puesto', ['VENDEDOR', 'PROMOTOR'])->get();
+
+        return view('reportes.comisiones', ['empleados' => $empleados]);
+    }
+
+    public function reporteComisiones() {}
 }

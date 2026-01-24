@@ -50,4 +50,8 @@ Route::controller(reportesController::class)->group(function () {
     Route::get('/reportes', 'index')->name('reportes.index');
     Route::post('/reportes/generar', 'generar')->name('reportes.generar');
     Route::get('/ventas/export', 'exportVentas')->name('reportes.exportVentas');
+    Route::get('/inventario/export', 'exportInventario')->name('reportes.exportInventario');
+    Route::get('/reportes/comisiones', 'comisiones')->name('reportes.comisiones');
+    Route::post('/reportes/reporteComisiones', 'reporteComisiones')->name('reportes.reporteComisiones');
+
 });
