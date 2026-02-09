@@ -167,7 +167,7 @@
                 {{-- ENGANCHE / SALDO --}}
                 <div class="col-md-4">
                     <label>Enganche $</label>
-                    <input type="number" id="eng" name="eng" class="form-control" value="{{ $venta->engnache ?? 0  }}"
+                    <input type="number" id="eng" name="eng" class="form-control" value="{{ $venta->enganche ?? 0  }}"
                         onchange="engancheClientesModificado();">
                 </div>
                 <div class="col-md-4">
