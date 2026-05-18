@@ -235,7 +235,7 @@ class VentaController extends Controller
     public function EditarInformacion(Request $request)
     {
         $cuenta = $request->input('cuenta');
-        $venta = venta::where('cuenta', $cuenta)->first();
+        $venta = venta::where('cuenta', $cuenta)->firstOrFail();
         $categorias = inventario::select('categoria')->distinct()->get();
         $promotores = $vendedores = $cobradores = [];
 
@@ -252,9 +252,21 @@ class VentaController extends Controller
             }
         }
 
-        return view('cliente.editarCliente', ['venta' => $venta, 'categorias' => $categorias, 'promotores' => $promotores,
-            'vendedores' => $vendedores, 'cobradores' => $cobradores]);
+        // Convertimos el string de artículos guardados en un array de PHP
+        // Si no hay artículos, dejamos un array vacío
+        $articulosArray = [];
+        if (! empty($venta->articulo)) {
+            $articulosArray = explode(',', $venta->articulo);
+        }
 
+        return view('cliente.editarCliente', [
+            'venta' => $venta,
+            'categorias' => $categorias,
+            'promotores' => $promotores,
+            'vendedores' => $vendedores,
+            'cobradores' => $cobradores,
+            'articulosGuardados' => $articulosArray, // <--- Enviamos el array a la vista
+        ]);
     }
 
     public function edicion(Request $request)
@@ -262,8 +274,9 @@ class VentaController extends Controller
         $data = $request->all();
         $cuenta = $data['cuenta'];
 
-        $venta = Venta::where('cuenta', $data['cuenta'])->firstOrFail();
+        $venta = Venta::where('cuenta', $cuenta)->firstOrFail();
 
+        // Actualizamos la venta principal
         $venta->update([
             'fecha' => $data['date'],
             'semanal' => $data['forma'],
@@ -284,13 +297,37 @@ class VentaController extends Controller
             'vendedor' => $data['vendedor'],
             'entrego' => $data['vendedor'],
             'cobrador' => $data['cobrador'],
-            //  'cantArt' => $data['cantart'],
-            //            'articulo' => $data['arts'],
-            'precio' => $data['prec'],
+            'cantArt' => $data['cantart'],     // <-- DESCOMENTADO
+            'articulo' => $data['arts'],       // <-- DESCOMENTADO (Viene del input hidden id="arts")
+            'precio' => $data['pre'],          // <-- Cambiado a 'pre' para que coincida con el hidden
             'enganche' => $data['eng'],
-            'saldo' => $data['sald'],
+            'saldo' => $data['sa'],            // <-- Cambiado a 'sa' para que coincida con el hidden
             'estatus' => 'ACTIVO - EDITADO',
         ]);
+
+        // --- ACTUALIZACIÓN DE ENTRADAS/SALIDAS (ensal) ---
+        // 1. Borramos los registros anteriores de esta cuenta en ensal para no duplicar
+        ensal::where('cuenta', $cuenta)->delete();
+
+        // 2. Insertamos los nuevos artículos seleccionados en la edición
+        if (strpos($data['arts'], ',') !== false) {
+            $articulos = explode(',', $data['arts']);
+            array_unshift($articulos, '');
+        } else {
+            $articulos = ['', $data['arts']];
+        }
+
+        for ($i = 1; $i < count($articulos); $i++) {
+            if (! empty($articulos[$i])) {
+                ensal::insert([
+                    'fecha' => $data['date'],
+                    'producto' => $articulos[$i],
+                    'cantidad' => 1,
+                    'concepto' => 'VENTA (EDITADO)',
+                    'cuenta' => $data['cuenta'],
+                ]);
+            }
+        }
 
         return redirect()->route('home.index');
     }

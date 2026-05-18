@@ -31,7 +31,8 @@
 
                 <div class="col-md-2">
                     <label>Forma de pago $</label>
-                    <input type="number" id="forma" name="forma" class="form-control" value="{{ $venta->semanal }}" readonly>
+                    <input type="number" id="forma" name="forma" class="form-control" value="{{ $venta->semanal }}"
+                        readonly>
                 </div>
 
                 <div class="col-md-2">
@@ -47,7 +48,8 @@
 
                 <div class="col-md-2">
                     <label>Ruta</label>
-                    <input type="number" name="ruta" class="form-control" min="0" value="{{ $venta->ruta }}" required>
+                    <input type="number" name="ruta" class="form-control" min="0" value="{{ $venta->ruta }}"
+                        required>
                 </div>
 
                 <div class="col-md-2">
@@ -115,7 +117,8 @@
                 </div>
             </div>
 
-            {{-- PERSONAL --}}
+
+            {{-- PERSONAL Y ARTÍCULOS --}}
             <div class="row mb-3">
                 <div class="col-md-3">
                     <label>Promotor</label>
@@ -130,7 +133,7 @@
                 <div class="col-md-3">
                     <label>Vendedor</label>
                     <select name="vendedor" class="form-control" required>
-                        <option value="{{ $venta->vendedor }}"></option>
+                        <option value="{{ $venta->vendedor }}">{{ $venta->vendedor }}</option>
                         @foreach ($vendedores as $v)
                             <option value="{{ $v->nombre }}">{{ $v->nombre }}</option>
                         @endforeach
@@ -147,32 +150,33 @@
                     </select>
                 </div>
 
-                {{-- ARTICULOS --}}
-                <!--
+                {{-- ARTICULOS HABILITADOS --}}
                 <div class="col-md-3">
                     <label>Cantidad de artículos</label>
-                    <input type="number" id="cantart" name="cantart" class="form-control" min="0" value="{{ $venta->cantArt }}"
-                        onchange="cantidad()" required>
-                </div> -->
+                    <input type="number" id="cantart" name="cantart" class="form-control" min="0"
+                        value="{{ $venta->cantArt }}" onchange="cantidad()" required>
+                </div>
             </div>
-<!--
+
+            {{-- CONTENEDOR DINÁMICO DESCOMENTADO --}}
             <div id="dynamicContentContainer"></div>
-        -->
             {{-- SUBTOTAL --}}
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Subtotal $</label>
-                    <input type="text" id="prec"  name ="prec" class="form-control"  value="{{ $venta->precio }}">
+                    <input type="text" id="prec" name ="prec" class="form-control"
+                        value="{{ $venta->precio }}">
                 </div>
                 {{-- ENGANCHE / SALDO --}}
                 <div class="col-md-4">
                     <label>Enganche $</label>
-                    <input type="number" id="eng" name="eng" class="form-control" value="{{ $venta->enganche ?? 0  }}"
-                        onchange="engancheClientesModificado();">
+                    <input type="number" id="eng" name="eng" class="form-control"
+                        value="{{ $venta->enganche ?? 0 }}" onchange="engancheClientesModificado();">
                 </div>
                 <div class="col-md-4">
                     <label>Saldo $</label>
-                    <input type="text" id="sald" name="sald" class="form-control" readonly value="{{ $venta->saldo }}">
+                    <input type="text" id="sald" name="sald" class="form-control" readonly
+                        value="{{ $venta->saldo }}">
                 </div>
             </div>
 
@@ -183,18 +187,29 @@
             <input type="hidden" name="arts" id="arts">
 
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-danger"><a href="{{ route('home.index') }}">Cancelar y regresar</a></button>
+            <button type="button" class="btn btn-danger"><a href="{{ route('home.index') }}">Cancelar y
+                    regresar</a></button>
 
         </div>
     </form>
     <script>
-    function engancheClientesModificado(){
-    var precio = document.getElementById("prec").value;
-    var enganche = document.getElementById("eng").value;
+        function engancheClientesModificado() {
+            var precio = document.getElementById("prec").value;
+            var enganche = document.getElementById("eng").value;
+            var saldo = parseFloat(precio) - parseFloat(enganche);
+            document.getElementById("sald").value = saldo;
+        }
 
-    var saldo = parseFloat(precio) - parseFloat(enganche);
+        // Al cargar el documento, si ya tiene artículos, dispara la función cantidad() de venta.js
+        document.addEventListener("DOMContentLoaded", function() {
+            if (document.getElementById('cantart').value > 0) {
+                // Ejecuta la lógica que ya tienes en venta.js para pintar los selects
+                cantidad();
 
-    document.getElementById("sald").value = saldo;
-}
+                // Nota: Si tu venta.js requiere rellenar los valores viejos que provienen de $venta->articulo,
+                // asegúrate de pasarle la cadena mediante un input oculto o una variable global:
+                window.articulosGuardados = "{{ $venta->articulo }}";
+            }
+        });
     </script>
 @endsection
