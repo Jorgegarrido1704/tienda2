@@ -229,7 +229,8 @@ function calcularSaldoFinal() {
     const total = parseFloat(document.getElementById("pre").value) || 0;
     const engancheInput = document.getElementById("eng");
     const enganche = parseFloat(engancheInput.value) || 0;
-
+    document.getElementById("sald").value = 0;
+    document.getElementById("sa").value = 0;
     const saldo = total - enganche;
     const saldoFinal = saldo < 0 ? 0 : saldo;
 
