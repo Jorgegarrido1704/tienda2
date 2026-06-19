@@ -2,18 +2,17 @@
 
 @section('contenido')
     <div class="d-sm-flex align-items-center justify-content-between mb-4"> </div>
+
     <script>
         const ROUTES = {
-            // Faltaba la comilla despues de las llaves }}
-            fetchProducts: "{{ route('venta.fetchProducts') }}"
+            fetchProducts: "{{ route('venta.fetchProducts') }}",
+            getArticleCategory: "{{ route('venta.getArticleCategory') }}"
         };
         const ROUTE_getPrice = "{{ route('venta.getPrice') }}";
+        const categoriesData = @json($categorias);
+        const articulosGuardados = @json($articulosGuardados ?? []);
     </script>
     <script src="{{ asset('js/venta.js') }}"></script>
-    <script>
-        const categoriesData = @json($categorias);
-    </script>
-
 
     <form action="{{ route('venta.edicion') }}" method="POST" id="ventaForm">
         @csrf
@@ -117,7 +116,6 @@
                 </div>
             </div>
 
-
             {{-- PERSONAL Y ARTÍCULOS --}}
             <div class="row mb-3">
                 <div class="col-md-3">
@@ -158,20 +156,20 @@
                 </div>
             </div>
 
-            {{-- CONTENEDOR DINÁMICO DESCOMENTADO --}}
+            {{-- CONTENEDOR DINÁMICO --}}
             <div id="dynamicContentContainer"></div>
+
             {{-- SUBTOTAL --}}
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Subtotal $</label>
-                    <input type="text" id="prec" name ="prec" class="form-control"
+                    <input type="text" id="prec" name="prec" class="form-control"
                         value="{{ $venta->precio }}">
                 </div>
-                {{-- ENGANCHE / SALDO --}}
                 <div class="col-md-4">
                     <label>Enganche $</label>
                     <input type="number" id="eng" name="eng" class="form-control"
-                        value="{{ $venta->enganche ?? 0 }}" onchange="engancheClientesModificado();">
+                        value="{{ $venta->enganche ?? 0 }}" onchange="calcularSaldoFinal();">
                 </div>
                 <div class="col-md-4">
                     <label>Saldo $</label>
@@ -187,28 +185,17 @@
             <input type="hidden" name="arts" id="arts">
 
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-danger"><a href="{{ route('home.index') }}">Cancelar y
-                    regresar</a></button>
+            <button type="button" class="btn btn-danger">
+                <a href="{{ route('home.index') }}">Cancelar y regresar</a>
+            </button>
 
         </div>
     </form>
-    <script>
-        function engancheClientesModificado() {
-            var precio = document.getElementById("prec").value;
-            var enganche = document.getElementById("eng").value;
-            var saldo = parseFloat(precio) - parseFloat(enganche);
-            document.getElementById("sald").value = saldo;
-        }
 
-        // Al cargar el documento, si ya tiene artículos, dispara la función cantidad() de venta.js
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             if (document.getElementById('cantart').value > 0) {
-                // Ejecuta la lógica que ya tienes en venta.js para pintar los selects
                 cantidad();
-
-                // Nota: Si tu venta.js requiere rellenar los valores viejos que provienen de $venta->articulo,
-                // asegúrate de pasarle la cadena mediante un input oculto o una variable global:
-                window.articulosGuardados = "{{ $venta->articulo }}";
             }
         });
     </script>

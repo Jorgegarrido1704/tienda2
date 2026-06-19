@@ -331,4 +331,19 @@ class VentaController extends Controller
 
         return redirect()->route('home.index');
     }
+
+    public function getArticleCategory(Request $request)
+    {
+        $articulo = $request->query('articulo');
+
+        $row = Inventario::where('product', $articulo)
+            ->select('categoria')
+            ->first();
+
+        if (! $row) {
+            return response()->json(['error' => 'No encontrado'], 404);
+        }
+
+        return response()->json(['categoria' => $row->categoria]);
+    }
 }
