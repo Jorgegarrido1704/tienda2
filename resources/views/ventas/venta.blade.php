@@ -52,7 +52,7 @@
 
                 <div class="col-md-2">
                     <label>No. Cuenta</label>
-                    <input type="number" name="cuenta" class="form-control" value="{{ $venta}}" required>
+                    <input type="number" name="cuenta" class="form-control" value="{{ $venta }}" required>
                 </div>
             </div>
 
@@ -167,8 +167,10 @@
                 {{-- ENGANCHE / SALDO --}}
                 <div class="col-md-4">
                     <label>Enganche $</label>
-                    <input type="number" id="eng" name="eng" class="form-control" value="0"
-                        onchange="enganche()">
+
+                    <input type="number" id="eng"class="form-control" value="0"
+                        oninput="calcularSaldoFinal()">
+
                 </div>
                 <div class="col-md-4">
                     <label>Saldo $</label>
