@@ -168,13 +168,13 @@
                 <div class="col-md-4">
                     <label>Enganche $</label>
 
-                    <input type="number" id="eng"class="form-control" value="0"
+                    <input type="number" id="eng" name="eng" class="form-control" value="0"
                         oninput="calcularSaldoFinal()">
 
                 </div>
                 <div class="col-md-4">
                     <label>Saldo $</label>
-                    <input type="text" id="sald" class="form-control" readonly>
+                    <input type="text" id="sald" name="sald" class="form-control" readonly>
                 </div>
             </div>
 
