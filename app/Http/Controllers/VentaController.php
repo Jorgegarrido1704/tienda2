@@ -352,6 +352,6 @@ class VentaController extends Controller
         $venta = venta::where('cuenta', $cuenta)->firstOrFail();
         $venta->update(['estatus' => 'CANCELADA']);
 
-        return redirect()->back();
+        return redirect()->route('home.index');
     }
 }
