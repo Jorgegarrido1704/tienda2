@@ -186,7 +186,7 @@
 
             <button type="submit" class="btn btn-primary">Guardar</button>
             <button type="button" class="btn btn-danger">
-                <a href="{{ route('home.index') }}">Cancelar y regresar</a>
+                <a href="{{ route('venta.cancelar', ['cuenta' => $venta->cuenta]) }}">Cancelar y regresar</a>
             </button>
 
         </div>

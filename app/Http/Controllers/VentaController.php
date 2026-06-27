@@ -346,4 +346,12 @@ class VentaController extends Controller
 
         return response()->json(['categoria' => $row->categoria]);
     }
+
+    public function cancelar($cuenta)
+    {
+        $venta = venta::where('cuenta', $cuenta)->firstOrFail();
+        $venta->update(['estatus' => 'CANCELADA']);
+
+        return redirect()->back();
+    }
 }

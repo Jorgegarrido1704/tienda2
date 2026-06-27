@@ -32,6 +32,7 @@ Route::controller(VentaController::class)->group(function () {
     Route::get('/venta/EditarInformacion', 'EditarInformacion')->name('venta.EditarInformacion');
     Route::post('/venta/edicion', 'edicion')->name('venta.edicion');
     Route::get('/venta/getArticleCategory', 'getArticleCategory')->name('venta.getArticleCategory');
+    Route::get('/venta/cancelar/{cuenta}', 'cancelar')->name('venta.cancelar');
 });
 
 Route::controller(AbonoController::class)->group(function () {
